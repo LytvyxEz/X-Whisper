@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+
+
+    <header class="header" style="margin-top: 50px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+        <div class="container">
+            <nav class="header__nav">
+                <div class="header__div">
+                    <ul class="header__list__nav" >
+                        <li class="header__item__nav">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/explore">Explore</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/notifications">Notifications</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/messages">Messages</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section__post">
+            <div class="container">
+                <ul class="section__post__list">
+                    <li class="section__post__item">
+                            <h2 class="section__post__item__title">{{ post_name }}</h2>
+                            <br>
+                            <p>{{ content }}</p>
+                            <img class="section__post__item__img" src="{{ image_url }}" alt="">
+                        {% if video_url %}
+                        <div class="section__post__item__media">
+                            <iframe class="section__post__item__media__video"
+                                src="{{ video_url | replace('watch?v=', 'embed/') }}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            </div>
+                            {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </section>
+    <form method="POST">
+        <input type="hidden" name="post_id" value="{{ id }}">
+        <label class="comment__label" for="comment">Your Comment:</label>
+        <br>
+        <input class="comment__input" id="comment" name="comment" required>
+        <br>
+        <button class="submit__button" type="submit">Submit Comment</button>
+    </form>
+
+    </main>
+        <main>
+        <section class="section__post">
+            <div class="container">
+                <ul class="section__post__list">
+                    <li>
+                        <h1>Comments:</h1>
+                    </li>
+                    {% for comment in comments|sort(attribute='id', reverse=True) %}
+                        <li class="section__post__item">
+                            <h2 class="section__post__item__title"></h2>
+                            <h3 class="section__post__item__title">{{ comment['comment'] }}</h3>
+                        </li>
+                    {% endfor %}
+</body>
+</html>

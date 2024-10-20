@@ -1,0 +1,2 @@
+url = "https://igckzyzeayjxipwqpzuh.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnY2t6eXplYXlqeGlwd3FwenVoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODc1MTY3MSwiZXhwIjoyMDQ0MzI3NjcxfQ.wmXPXkmeUUNJNhrPcFdz8qCUn1wc6bUf-LFRLrGS4HU"
