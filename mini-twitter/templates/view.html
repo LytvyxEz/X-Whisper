@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <p>{{name}}</p>
+  <p>{{id}}</p>
+  <p>{{birthday}}</p>
+  <p>{{sex}}</p>
+  {%for post in posts%}
+    <p>{{post['content']}}</p>
+    <p></p>
+  {%endfor%}
+</body>
+</html>

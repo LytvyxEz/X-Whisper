@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global posts</title>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <section class="section__post">
+                <ul class="section__post__list">
+                    {% for post in posts %}
+                        <li class="section__post__item">
+                            <a href="{{ url_for('post', post_id=post.id) }}">
+                                <h3 class="section__post__item__title">{}</h3>
+                                <p class="section__post__item__text">{{ post.content }}</p>
+                                <img class="section__post__item__img" src="{{ post.image_url }}" alt="">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
