@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="header__nav">
+                <div class="header__div">
+                    <ul class="header__list__nav">
+                        <li class="header__item__nav">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/explore">Explore</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/addpost">Add a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/delete_post">Delete a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/all_users">All users</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <h1 class="register__main__title">X-Whisper</h1>
+    <h1 class="explore__h1">Explore</h1>
+    <br><br><br>
+    <main>
+        <div>
+            <form class="form__register" action="{{ url_for('post.explore') }}" method="POST">
+                <ul class="form__register__list">
+                    <li class="form__register__item">
+                        <label class="form__register__item__label" for="explore_input">Enter The Post Title To Find A Post:</label>
+                        <input class="form__register__item__input" type="text" id="explore_input" name="explore_input" value="{{ search if search else '' }}" required>
+                        <input class="explore__input" type="submit" value="Search">
+                    </li>
+                </ul>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+        <section class="section__post">
+            <br><br>
+            <h1 class="add__post_h1">{{ 'Search Results for: ' + search if search else 'All Posts' }}</h1>
+            <br><br><br>
+            <div class="container">
+                {% if not all_post %}
+                <div class="no-posts">
+                    <h2>No posts found.</h2>
+                </div>
+                {% else %}
+                <ul class="section__post__list">
+                    {% for post in all_post|sort(attribute='id', reverse=True) %}
+                    <li class="section__post__item">
+                        <a href="/post/{{post['id']}}">
+                            <h2 class="section__post__item__title">{{ post['title'] }}</h2>
+                            <h3 class="section__post__item__text">{{ post['content'] }}</h3>
+                            {% if post['image_url'] %}
+                            <img class="section__post__item__img" src="{{ post['image_url'] }}" alt="Post Image">
+                            {% endif %}
+                        </a>
+                        {% if post['video_url'] %}
+                        <div class="section__post__item__media">
+                            <iframe class="section__post__item__media__video" src="{{ post['video_url'] | replace('watch?v=', 'embed/') }}" frameborder="0"></iframe>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

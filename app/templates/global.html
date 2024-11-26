@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <div class="header__div">
+                <ul class="header__list__nav">
+                    <a class="header__nav__link" href="http://127.0.0.1:5000/profile">
+                        <img class="header__nav__link__img" src="../static/img/profile.png" alt="#">
+                        <ul class="header__nav__link__list">
+                            <li>
+                                <p class="header__nav__link__nik">{{username}}</p>
+                            </li>
+                            <li>
+                                <p class="header__nav__link__name">{{user_id}}</p>
+                            </li>
+                        </ul>
+                    </a>
+                    <ul class="header__list__nav">
+                        <li class="header__item__nav">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/explore">Explore</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/addpost">Add a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/delete_post">Delete a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/all_users">All users</a>
+                        </li>
+                    </ul>
+            </div>
+            <ul class="header__nav__list">
+                <li class="header__nav__item">
+                    <a href="http://127.0.0.1:5000/global">
+                        <button class="header__nav__item__btn">
+                            Global
+                        </button>
+                    </a>
+                </li>
+                <li class="header__nav__item">
+                    <a href="http://127.0.0.1:5000/following">
+                        <button class="header__nav__item__btn">
+                            Following
+                        </button>
+                    </a>
+                </li>
+            </ul>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+        </nav>
+    </div>
+</header>
+<main>
+    <section class="section__post">
+        <div class="container">
+            <ul class="section__post__list">
+                {% for post in all_post|sort(attribute='id', reverse=True) %}
+                <li class="section__post__item">
+                    <a href="/post/{{post['id']}}">
+                        <h2 class="section__post__item__title">{{ post['title'] }}</h2>
+                        <br>
+                        <h3 class="section__post__item__text">{{ post['content']}}</h3>
+                        <img class="section__post__item__img" src="{{ post['image_url'] }}" alt="">
+                    </a>
+                    {% if post['video_url'] %}
+                    <iframe class="section__post__item__media__video"
+                            src="{{ post['video_url'] }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    {% endif %}
+                    <h1 class="comment"><a href="/post/{{post['id']}}">Comment</a></h1>
+                </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

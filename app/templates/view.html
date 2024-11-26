@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+<header class="header" style="">
+    <div class="container">
+        <nav class="header__nav">
+            <div class="header__div">
+                <ul class="header__list__nav">
+                    <li class="header__item__nav">
+                        <a href="/">Home</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/explore">Explore</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/addpost">Add a post</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/delete_post">Delete a post</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/all_users">All users</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</header>
+<main class="profile">
+    <section class="profile__me">
+        <div class="container">
+            <img class="profile__me__img" src="../static/img/profile.png" alt="#">
+            <form class="buttons_follow" action="{{ url_for('profile.view_profile', id=id) }}" method="post">
+                {% if user_id != idol %}
+                {% if is_following %}
+                <button type="submit" class="delete__post__submit">UNFOLLOW</button>
+                {% else %}
+                <button type="submit" class="explore__input">FOLLOW</button>
+                {% endif %}
+                {% endif %}
+            </form>
+            <ul class="profile__me__list">
+                <li class="profile__me__item">{{name}}</li>
+                <li class="profile__me__item">id: {{id}}</li>
+                <li class="profile__me__item">gender: {{sex}}</li>
+                <li class="profile__me__item">{{birthday}}</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="my__post-section">
+        <ul class="my__post-section__list">
+            <li class="my__post-section__item">
+
+            </li>
+        </ul>
+    </section>
+</main>
+<main>
+    <div class="container">
+        <section class="section__post">
+            <ul class="section__post__list">
+                {% for post in all_post|sort(attribute='id', reverse=True) %}
+                <li class="section__post__item">
+                    <a href="/post/{{post['id']}}">
+                        <h3 class="section__post__item__title">{{ post['title'] }}</h3>
+                        <p class="section__post__item__text">{{ post['content']}}</p>
+                        <img class="section__post__item__img" src="{{ post['image_url'] }}" alt="">
+                    </a>
+                    {% if post['video_url'] %}
+                    <iframe class="section__post__item__media__video"
+                            src="{{ post['video_url'] }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
+</body>
+
+</html>

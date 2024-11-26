@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all_users.css') }}">
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="header__nav">
+                <div class="header__div">
+                    <ul class="header__list__nav">
+                        <li class="header__item__nav">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/explore">Explore</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/addpost">Add a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/delete_post">Delete a post</a>
+                        </li>
+                        <li class="header__item__nav">
+                            <a href="/all_users">All users</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="header__nav__list">
+                    <li class="header__nav__item">
+                        <a href="/all_users">
+                            <button class="header__nav__item__btn">
+                                All Users
+                            </button>
+                        </a>
+                    </li>
+                    <li class="header__nav__item">
+                        <a href="/all_following_users">
+                            <button class="header__nav__item__btn">
+                                Following Users
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h1 class="add__post_h1">ALL USERS</h1>
+        <section class="section__post">
+            <div class="container">
+                <ul class="section__post__list">
+                    {% for user in users %}
+                        <li>
+                            <a href="/view_profile/{{ user['id'] }}">
+                                <h3>{{ user['name'] }}</h3>
+                                <h4> id: {{ user['id'] }}</h4>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

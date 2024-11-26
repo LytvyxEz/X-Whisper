@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete A Post</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+<header class="header">
+
+    <div class="container">
+        <nav class="header__nav">
+            <div class="header__div">
+                <ul class="header__list__nav">
+                    <li class="header__item__nav">
+                        <a href="/">Home</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/explore">Explore</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/addpost">Add a post</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/delete_post">Delete a post</a>
+                    </li>
+                    <li class="header__item__nav">
+                        <a href="/all_users">All users</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<h1 class="register__main__title">X-Whisper</h1>
+<H2 class="explore__h1">Delete a post</H2>
+<br><br><br>
+<main>
+    <div>
+        <form class="form__register" action="{{ url_for('post.delete_post') }}" method="POST">
+            <ul class="form__register__list">
+                <li class="form__register__item">
+                    <label class="form__register__item__label" for="delete_post">Enter The Post Title To Delete A
+                        Post:</label>
+                    <input class="form__register__item__input" type="text" id="delete_post" name="delete_post" required>
+                    <input class="delete__post__submit" type="submit" value="Delete The Post">
+                </li>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+            </ul>
+        </form>
+    </div>
+</main>
+<br><br><br><br><br><br>
+<h1 class="add__post_h1">Your posts</h1>
+<main>
+    <div class="container">
+        <section class="section__post">
+            <ul class="section__post__list">
+                {% for post in all_post|sort(attribute='id', reverse=True) %}
+                <li class="section__post__item">
+                    <a href="/post/{{post['id']}}">
+                        <h3 class="section__post__item__title">{{ post['title'] }}</h3>
+                        <p class="section__post__item__text">{{ post['content']}}</p>
+                        <img class="section__post__item__img" src="{{ post['image_url'] }}" alt="">
+                    </a>
+                    {% if post['video_url'] %}
+                    <iframe class="section__post__item__media__video"
+                            src="{{ post['video_url'] }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</main>
+</body>
+
+</html>

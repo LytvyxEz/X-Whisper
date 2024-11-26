@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <main>
+        <section class="logout__section">
+    <div class="container">
+        <h2 class="logout__title">Logout</h2>
+        <p class="logout__text">Are you sure you want to logout?</p>
+
+        <form method="POST">
+            <button type="submit" class="logout__btn">Yes, Logout</button>
+            <a href="/profile" class="logout__link"><button>Cancel</button></a>
+        </form>
+    </div>
+</section>
+</main>
+</body>
+</html>

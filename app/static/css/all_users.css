@@ -1,0 +1,73 @@
+.header .container {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    border: #000000 1px solid;
+    max-width: 35%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1a1a1a; /* Dark background */
+    border-radius: 10px;
+}
+
+/* Heading */
+.add__post_h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #f9e51f; /* Bright yellow */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* User list styling */
+.section__post__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual list item */
+.section__post__list li {
+    background: linear-gradient(45deg, #2b2b2b, #1a1a1a); /* Black gradient */
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* User link */
+.section__post__list li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px 20px;
+    color: #f9e51f; /* Bright yellow */
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effects */
+.section__post__list li:hover {
+    background: linear-gradient(45deg, #333, #1a1a1a); /* Darker gradient on hover */
+}
+
+.section__post__list li a:hover {
+    color: #ffdf00; /* Even brighter yellow on hover */
+    transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+    .add__post_h1 {
+        font-size: 2rem;
+    }
+    .section__post__list li a {
+        font-size: 1rem;
+    }
+}
